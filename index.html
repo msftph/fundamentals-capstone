@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <input type="text" id="taskInput" placeholder="Add new task...">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Function to add a new task
+        function addTask() {
+            var taskInput = document.getElementById('taskInput');
+            var taskText = taskInput.value.trim();
+            if (taskText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+            var taskList = document.getElementById('taskList');
+            var li = document.createElement('li');
+            li.innerHTML = `
+                <span>${taskText}</span>
+                <button onclick="completeTask(this)">Complete</button>
+                <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+            `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+        }
+
+        // Function to mark a task as completed
+        function completeTask(btn) {
+            var task = btn.parentElement;
+            task.classList.toggle('completed');
+        }
+
+        // Function to delete a task
+        function deleteTask(btn) {
+            var task = btn.parentElement;
+            task.remove();
+        }
+    </script>
+</body>
+</html>
